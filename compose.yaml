@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: better-postgres
+    environment:
+      POSTGRES_USER: better
+      POSTGRES_PASSWORD: better_dev
+      POSTGRES_DB: better
+    ports:
+      - "5432:5432"
+    volumes:
+      - better_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U better -d better"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  better_postgres_data:
